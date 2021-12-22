@@ -54,6 +54,7 @@
                         <label><input type="radio" name="jenis_kelamin" value="perempuan"> Perempuan</label>
                     </p>
                 </div>
+
                 <div class="form-group mt-3 mx-2">
                     <p>
                         <label for="agama">Agama: </label>
@@ -75,6 +76,7 @@
                         <input class="a" required type="text" name="sekolah_asal" placeholder="Nama Sekolah" />
                     </p>
                 </div>
+
                 <div class="form-group mt-3 mx-2 my-4">
                     <p>
                         <label for="foto">Foto: </label>
@@ -89,7 +91,6 @@
             </form>
         </div>
     </div>
-
 </body>
 
 </html>

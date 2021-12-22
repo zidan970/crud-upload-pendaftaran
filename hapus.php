@@ -2,31 +2,35 @@
 
 include("config.php");
 
-if( isset($_GET['id']) ){
-
-    // get id from query
+if( isset($_GET['id']) )
+{
+    // ambil id dari query string
     $id = $_GET['id'];
 
-    // select query to get data from id 
+    // select query untuk ambil data dari id 
     $sql = "SELECT foto FROM calon_siswa WHERE id=$id";
     $query = mysqli_query($db, $sql);
     $data = $query->fetch_assoc();
-                
-    if(is_file("images/".$data['foto'])) // Jika foto ada
+            
+    // jika foto ada
+    if(is_file("images/".$data['foto'])) 
         unlink("images/".$data['foto']);
 
-    // delete query
+    // buat query hapus
     $sql = "DELETE FROM calon_siswa WHERE id=$id";
     $query = mysqli_query($db, $sql);
 
-   // if success
-    if( $query ){
+    // apakah query hapus berhasil?
+    if( $query )
+    {
         header('Location: list-siswa.php');
-    } else {
+    } else 
+    {
         die("gagal menghapus...");
     }
-
-} else {
+} 
+else 
+{
     die("akses dilarang...");
 }
 

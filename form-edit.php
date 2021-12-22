@@ -2,26 +2,27 @@
 
 include("config.php");
 
-// if error
-if (!isset($_GET['id'])) {
+// kalau tidak ada id di query string
+if (!isset($_GET['id'])) 
+{
     header('Location: list-siswa.php');
 }
 
-// get id from query
+// ambil id dari query string
 $id = $_GET['id'];
 
-// select query to get data from id 
+// buat query untuk ambil data dari database
 $sql = "SELECT * FROM calon_siswa WHERE id=$id";
 $query = mysqli_query($db, $sql);
 $siswa = mysqli_fetch_assoc($query);
 
-// if not found
-if (mysqli_num_rows($query) < 1) {
+// jika data yang diedit tidak ditemukan
+if (mysqli_num_rows($query) < 1) 
+{
     die("data tidak ditemukan...");
 }
 
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -56,6 +57,7 @@ if (mysqli_num_rows($query) < 1) {
     <div class="d-flex min-vh-100 flex-column aligns-items-center justify-content-center">
         <div class="container p-0 card shadow border-0 rounded" style="max-width: 20rem;">
             <form action="proses-edit.php" method="POST" class="form-group" enctype = "multipart/form-data">
+                
                 <div class="form-group mt-3 mx-2">
                     <input class="a" type="hidden" name="id" value="<?php echo $siswa['id'] ?>" />
                     <label for="nama">Nama: </label><br>
@@ -68,6 +70,7 @@ if (mysqli_num_rows($query) < 1) {
                         <textarea name="alamat"><?php echo $siswa['alamat'] ?></textarea>
                     </p>
                 </div>
+                
                 <div class="form-group mt-3 mx-2">
                     <p>
                         <label for="jenis_kelamin">Jenis Kelamin: </label>
@@ -77,6 +80,7 @@ if (mysqli_num_rows($query) < 1) {
                         <label><input type="radio" name="jenis_kelamin" value="perempuan" <?php echo ($jk == 'perempuan') ? "checked" : "" ?>> Perempuan</label>
                     </p>
                 </div>
+                
                 <div class="form-group mt-3 mx-2">
                     <p>
                         <label for="agama">Agama: </label><br>
@@ -114,7 +118,6 @@ if (mysqli_num_rows($query) < 1) {
             </form>
         </div>
     </div>
-
 </body>
 
 </html>

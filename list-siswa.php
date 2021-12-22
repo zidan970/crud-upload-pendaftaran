@@ -54,12 +54,14 @@
                     <th scope="col" class="text-center">Tindakan</th>
                 </tr>
             </thead>
+
             <tbody>
                 <?php
-                $sql = "SELECT * FROM calon_siswa"; // query to get all data 
+                $sql = "SELECT * FROM calon_siswa";
                 $query = mysqli_query($db, $sql);
 
-                while ($siswa = mysqli_fetch_array($query)) {
+                while ($siswa = mysqli_fetch_array($query)) 
+                {
                     echo "<tr>";
 
                     echo "<td>" . $siswa['id'] . "</td>";
@@ -77,14 +79,12 @@
                     echo "</tr>";
                 }
                 ?>
-
             </tbody>
         </table>
 
         <h5>Total: <?php echo mysqli_num_rows($query) ?></h5>
+    
     </div>
-
-
 </body>
 
 </html>

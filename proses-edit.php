@@ -2,9 +2,9 @@
 
 include("config.php");
 
-// cek apakah tombol simpan sudah diklik atau blum?
-if(isset($_POST['simpan'])){
-
+// cek apakah tombol simpan sudah diklik atau belum?
+if(isset($_POST['simpan']))
+{
     // ambil data dari formulir
     $id = $_POST['id'];
     $nama = $_POST['nama'];
@@ -13,61 +13,66 @@ if(isset($_POST['simpan'])){
     $agama = $_POST['agama'];
     $sekolah = $_POST['sekolah_asal'];
 
-    // Ambil data foto yang dipilih dari form
+    // ambil data foto yang dipilih dari form
     $foto = $_FILES['foto']['name'];
     $tmp = $_FILES['foto']['tmp_name'];
 
-    if(empty($foto)){
-        // query update
+    if(empty($foto))
+    {
+        // buat query update
         $sql = "UPDATE calon_siswa SET nama='$nama', alamat='$alamat', jenis_kelamin='$jk', agama='$agama', sekolah_asal='$sekolah' WHERE id=$id";
         $query = mysqli_query($db, $sql);
 
-            // if success
-        if( $query ) {
+        // apakah query update berhasil?
+        if( $query ) 
+        {
+            // kalau berhasil alihkan ke halaman list-siswa.php
             header('Location: list-siswa.php');
-        } else {
-            // if failed
+        } 
+        else 
+        {
+            // kalau gagal tampilkan pesan
             die("Gagal menyimpan perubahan...");
         }
     }
-    else{
-        // Lakukan proses update termasuk mengganti foto sebelumnya
-        // Rename nama fotonya dengan menambahkan tanggal dan jam upload
+    else
+    {
+        // me-rename nama fotonya dengan menambahkan tanggal dan jam upload
         $fotobaru = date('dmYHis').$foto;
-        // Set path folder tempat menyimpan fotonya
+        // menyetel path folder tempat menyimpan fotonya
         $path = "images/".$fotobaru;
 
-        if(move_uploaded_file($tmp, $path)){
-            // // get id from query
-            // $ids = $_GET['id'];
-
-            // select query to get data from id 
+        if(move_uploaded_file($tmp, $path))
+        {
+            // select query untuk mengambil data dari id 
             $sql = "SELECT foto FROM calon_siswa WHERE id=$id";
             $query = mysqli_query($db, $sql);
             $data = $query->fetch_assoc();
             
-            if(is_file("images/".$data['foto'])) // Jika foto ada
+            // jika foto ada
+            if(is_file("images/".$data['foto'])) 
             unlink("images/".$data['foto']);
 
+            // buat query update
             $sql = "UPDATE calon_siswa SET nama='$nama', alamat='$alamat', jenis_kelamin='$jk', agama='$agama', sekolah_asal='$sekolah', foto='$fotobaru' WHERE id=$id";
             $query = mysqli_query($db, $sql);
 
-            // if success
-            if( $query ) {
+            // apakah query update berhasil?
+            if( $query ) 
+            {
+                // kalau berhasil alihkan ke halaman list-siswa.php
                 header('Location: list-siswa.php');
-            } else {
-                // if failed
+            } 
+            else 
+            {
+                // kalau gagal tampilkan pesan
                 die("Gagal menyimpan perubahan...");
             }
-        
         }
-
     }
-
-
-
-
-} else {
+} 
+else 
+{
     die("Akses dilarang...");
 }
 
